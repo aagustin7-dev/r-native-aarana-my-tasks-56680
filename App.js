@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TextInput, Button, FlatList, Modal, ImageBackground, Pressable } from 'react-native'
 import {useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faTrash,faCopyright } from '@fortawesome/free-solid-svg-icons'
 import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
@@ -27,11 +27,13 @@ export default function App() {
         setTextItem('')
     }
 
+    /* Selecciona el ID del item a borrar */
     const onSelectItemHandler = (id) => {
       setModalVisible(!modalVisible)
       setItemSelectedToDelete(itemList.find((item)=>item.id===id))
     }
     
+    /* Remueve del array el item seleccionado para borrar */
     const onDeleteItemHandler = () => {
       setItemList(itemList.filter((item)=>item.id!==itemSelectedToDelete.id))
       setModalVisible(!modalVisible)
@@ -75,6 +77,9 @@ export default function App() {
                 renderItem={renderListItem}
                 keyExtractor={item=>item.id}
             />
+        </View>
+        <View style={styles.footer}>
+            <Text style={styles.textFooter}><FontAwesomeIcon style={styles.iconCopyRight} icon={faCopyright} />  Copyright • Todos los derechos reservados • 2023</Text>
         </View>
         <Modal style={styles.modalGeneric} animationType="slide" visible={modalVisible}>
             <View style={styles.modalMessageContainer}>
@@ -158,5 +163,16 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 30,
         color: 'white'
+    },
+    footer: {
+        backgroundColor: '#230612',
+        padding: 20
+    },
+    iconCopyRight: {
+        color: 'white'
+    },
+    textFooter: {
+        color: 'white',
+        textAlign: 'center'
     }
 });
